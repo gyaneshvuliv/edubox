@@ -7473,7 +7473,10 @@ function insertTracker(data) {
       journey_id: data.journey_id,
       view_duration: data.view_duration,
       play_duration: data.play_duration,
-      platform_duration: data.platform_duration
+      platform_duration: data.platform_duration,
+      type:data.type,
+      title:data.title
+
     }
     db.get().query(query, json, function (err, device) {
       if (err) { myResolve(err) }
