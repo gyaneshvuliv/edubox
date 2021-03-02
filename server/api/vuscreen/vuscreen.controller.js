@@ -7394,7 +7394,7 @@ exports.useranalytics = async function (req, res) {
   for (let l = 0; l < data.user.length; l++) {
       console.log(data.user[l])
       let doc1 = await insertUser(data.user[l]);
-    if (i + 1 == data.user.length) {
+    if (l + 1 == data.user.length) {
       return res.status(200).json("doc1");
     }
   }
@@ -7450,7 +7450,7 @@ exports.eventanalytics = async function (req, res) {
   for (let k = 0; k < data.event.length; k++) {
       console.log(data.event[k])
       let doc1 = await insertEvent(data.event[k]);
-    if (i + 1 == data.event.length) {
+    if (k + 1 == data.event.length) {
       return res.status(200).json("doc1");
     }
   }
@@ -7511,7 +7511,7 @@ exports.trackeranalytics = async function (req, res) {
   for (let j = 0; j < data.tracker.length; j++) {
       console.log(data.tracker[j])
       let doc1 = await insertTracker(data.tracker[j]);
-    if (i + 1 == data.tracker.length) {
+    if (j + 1 == data.tracker.length) {
       return res.status(200).json("doc1");
     }
   }
