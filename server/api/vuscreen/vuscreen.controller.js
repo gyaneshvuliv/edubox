@@ -7329,26 +7329,26 @@ var dtsd = function () {
 exports.analytics = function (req, res) {
   async function app() {
 
-
+console.log(req.body.length)
     var datas = req.body;
     for(let o=0;o<datas.length;o++){
       var data= datas[o];
     
     for (let i = 0; i < data.chat.length; i++) {
-      console.log(data.chat[i]); 
+      // console.log(data.chat[i]); 
       let doc1 = await insertChat(data.chat[i]);
     }
 
     for (let j = 0; j < data.tracker.length; j++) {
-      console.log(data.tracker[j])
+      // console.log(data.tracker[j])
       let doc1 = await insertTracker(data.tracker[j]);
     }
     for (let k = 0; k < data.event.length; k++) {
-      console.log(data.event[k])
+      // console.log(data.event[k])
       let doc1 = await insertEvent(data.event[k]);
     }
     for (let l = 0; l < data.user.length; l++) {
-      console.log(data.user[l])
+      // console.log(data.user[l])
       let doc1 = await insertUser(data.user[l]);
     }
     if(o+1==datas.length){
