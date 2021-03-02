@@ -11,11 +11,12 @@ module.exports = {
     // password : 'RBI@M0ve@1980',
 //     user : spiceread
 // Pass : Analytics#@!R@ad
-    // host     : '13.234.36.105',
-    host     : '3.7.31.207',
-    user     : 'root',
+    host     : '13.234.36.105',
+    // host     : '3.7.31.207',
+    // host     : 'localhost',
+    user     : 'morevidya',
     password : 'RBI@M0ve@1980',
-    database : 'edubox',
+    database : 'localmorevidya',
     debug    :  false,
     queueLimit: 30,
     acquireTimeout: 150000,

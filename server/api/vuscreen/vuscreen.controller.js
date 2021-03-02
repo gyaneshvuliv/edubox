@@ -7326,7 +7326,7 @@ var dtsd = function () {
 
 
 
-exports.analytics = async function (req, res) {
+exports.chatanalytics = async function (req, res) {
   // console.log(req.body)
   console.log(req.body.length)
 
@@ -7386,6 +7386,36 @@ function insertChat(data) {
 
 
 
+exports.useranalytics = async function (req, res) {
+  // console.log(req.body)
+  console.log(req.body.length)
+
+  var data = req.body;
+  for (let l = 0; l < data.user.length; l++) {
+      console.log(data.user[l])
+      let doc1 = await insertUser(data.user[l]);
+    if (i + 1 == data.user.length) {
+      return res.status(200).json("doc1");
+    }
+  }
+
+  // for (let j = 0; j < data.tracker.length; j++) {
+  //   // console.log(data.tracker[j])
+  //   let doc1 = await insertTracker(data.tracker[j]);
+  // }
+  // for (let k = 0; k < data.event.length; k++) {
+  //   // console.log(data.event[k])
+  //   let doc1 = await insertEvent(data.event[k]);
+  // }
+  // for (let l = 0; l < data.user.length; l++) {
+  //   // console.log(data.user[l])
+  //   let doc1 = await insertUser(data.user[l]);
+  // }
+
+
+};
+
+
 
 function insertUser(data) {
   return new Promise(function (myResolve, myReject) {
@@ -7412,7 +7442,34 @@ function insertUser(data) {
 }
 
 
+exports.eventanalytics = async function (req, res) {
+  // console.log(req.body)
+  console.log(req.body.length)
 
+  var data = req.body;
+  for (let k = 0; k < data.event.length; k++) {
+      console.log(data.event[k])
+      let doc1 = await insertEvent(data.event[k]);
+    if (i + 1 == data.event.length) {
+      return res.status(200).json("doc1");
+    }
+  }
+
+  // for (let j = 0; j < data.tracker.length; j++) {
+  //   // console.log(data.tracker[j])
+  //   let doc1 = await insertTracker(data.tracker[j]);
+  // }
+  // for (let k = 0; k < data.event.length; k++) {
+  //   // console.log(data.event[k])
+  //   let doc1 = await insertEvent(data.event[k]);
+  // }
+  // for (let l = 0; l < data.user.length; l++) {
+  //   // console.log(data.user[l])
+  //   let doc1 = await insertUser(data.user[l]);
+  // }
+
+
+};
 
 function insertEvent(data) {
   return new Promise(function (myResolve, myReject) {
@@ -7446,7 +7503,34 @@ function insertEvent(data) {
 }
 
 
+exports.trackeranalytics = async function (req, res) {
+  // console.log(req.body)
+  console.log(req.body.length)
 
+  var data = req.body;
+  for (let j = 0; j < data.tracker.length; j++) {
+      console.log(data.tracker[j])
+      let doc1 = await insertTracker(data.tracker[j]);
+    if (i + 1 == data.tracker.length) {
+      return res.status(200).json("doc1");
+    }
+  }
+
+  // for (let j = 0; j < data.tracker.length; j++) {
+  //   // console.log(data.tracker[j])
+  //   let doc1 = await insertTracker(data.tracker[j]);
+  // }
+  // for (let k = 0; k < data.event.length; k++) {
+  //   // console.log(data.event[k])
+  //   let doc1 = await insertEvent(data.event[k]);
+  // }
+  // for (let l = 0; l < data.user.length; l++) {
+  //   // console.log(data.user[l])
+  //   let doc1 = await insertUser(data.user[l]);
+  // }
+
+
+};
 
 function insertTracker(data) {
   return new Promise(function (myResolve, myReject) {

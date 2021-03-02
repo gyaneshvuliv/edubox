@@ -12,7 +12,11 @@ var cronJob = require('cron').CronJob;
 
 
 
-router.post('/insertAnalytics',  controller.analytics);
+router.post('/insertChatAnalytics',  controller.chatanalytics);
+router.post('/insertUserAnalytics',  controller.useranalytics);
+router.post('/insertEventAnalytics',  controller.eventanalytics);
+router.post('/insertTrackerAnalytics',  controller.trackeranalytics);
+
 
 
 router.get('/serverclient/datewise', auth.isAuthenticated(), controller.get_serverclient_datewise);
