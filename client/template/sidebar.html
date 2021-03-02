@@ -18,11 +18,11 @@
         <!-- begin sidebar nav -->
         <ul class="nav" ng-show="user.role == 'admin' || user.role == 'user'">
             <li class="nav-header">Navigation </li>
-            <li class="has-sub" ng-class="{active:$state.includes('app.dashboard')}">
+            <!-- <li class="has-sub" ng-class="{active:$state.includes('app.dashboard')}">
                 <a ui-sref="app.dashboard"><i class="fa fa-laptop"></i>Dashboard</a>
-            </li>
+            </li> -->
             <!-- brands menu start -->
-            <li class="has-sub" ng-class="{active:$state.includes('app.brands')}">
+            <!-- <li class="has-sub" ng-class="{active:$state.includes('app.brands')}">
                 <a href="javascript:;">
                     <span class="caret pull-right"></span>
                     <i class="fa fa-file"></i>
@@ -31,12 +31,12 @@
                 <ul class="sub-menu">
                     <li ui-sref-active="active"><a ui-sref="app.brands.campaign">Campaigns</a></li>
                 </ul>
-            </li>
+            </li> -->
             <!-- brands menu end -->
             <!-- flight tracking menu start -->
-            <li class="has-sub" ng-class="{active:$state.includes('app.flightTracking')}">
+            <!-- <li class="has-sub" ng-class="{active:$state.includes('app.flightTracking')}">
                 <a ui-sref="app.flightTracking"><i class="fas fa-plane"></i>Flight Tracking</a>
-            </li>
+            </li> -->
             <!-- flight tracking menu start -->
             <li class="has-sub" ng-class="{active:$state.includes('app.reports')}">
                 <a href="javascript:;">
@@ -45,29 +45,29 @@
                     <span>Reports </span>
                 </a>
                 <ul class="sub-menu">
-                    <li ui-sref-active="active"><a ui-sref="app.reports.registration">Registration Logs</a></li>
+                    <!-- <li ui-sref-active="active"><a ui-sref="app.reports.registration">Registration Logs</a></li> -->
                     <li ui-sref-active="active"><a ui-sref="app.reports.events">Events Logs</a></li>
-                    <li ui-sref-active="active"><a ui-sref="app.reports.cabincrew">CabinCrew Logs</a></li>
+                    <!-- <li ui-sref-active="active"><a ui-sref="app.reports.cabincrew">CabinCrew Logs</a></li> -->
                     <li ui-sref-active="active"><a ui-sref="app.reports.tracker">Play Logs</a></li>
-                    <li ui-sref-active="active"><a ui-sref="app.reports.ads">Ads Logs</a></li>
-                    <li ui-sref-active="active"><a ui-sref="app.reports.games">Games Logs</a></li>
-                    <li ui-sref-active="active"><a ui-sref="app.reports.read">Read Logs</a></li>
-                    <li ui-sref-active="active"><a ui-sref="app.reports.travel">Travel Logs</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.reports.ads"> User Logs</a></li>
+                    <!-- <li ui-sref-active="active"><a ui-sref="app.reports.games">Chat Logs</a></li> -->
+                     <li ui-sref-active="active"><a ui-sref="app.reports.read">Chat Logs</a></li> 
+                    <!-- <li ui-sref-active="active"><a ui-sref="app.reports.travel">Travel Logs</a></li>
                     <li ui-sref-active="active"><a ui-sref="app.reports.malls">Malls Logs</a></li>
                     <li ui-sref-active="active"><a ui-sref="app.reports.FnB">FnB Logs</a></li>
-                    <!-- <li ui-sref-active="active"><a ui-sref="app.reports.memorytracker">Memory Tracker</a></li> -->
+                     <li ui-sref-active="active"><a ui-sref="app.reports.memorytracker">Memory Tracker</a></li> --> 
                     <!-- <li ui-sref-active="active"><a ui-sref="app.reports.serversession">Server Sessions</a></li> -->
-                    <li ui-sref-active="active"><a ui-sref="app.reports.topclicks">Top Clicks</a></li>
+                    <!-- <li ui-sref-active="active"><a ui-sref="app.reports.topclicks">Top Clicks</a></li>
                     <li ui-sref-active="active"><a ui-sref="app.reports.topclicksbyhosts">Top Clicks by Hosts</a></li>
                     <li ui-sref-active="active"><a ui-sref="app.reports.topcontent">Top Content</a></li>
                     <li ui-sref-active="active"><a ui-sref="app.reports.topcategory">Top Categories</a></li>
                     <li ui-sref-active="active"><a ui-sref="app.reports.monthlyusage">Monthly Usage</a></li>
                     <li ui-sref-active="active"><a ui-sref="app.reports.usagebucket">Usage Bucket</a></li>
-                    <li ui-sref-active="active"><a ui-sref="app.reports.serversession">Server Session</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.reports.serversession">Server Session</a></li> -->
                 </ul>
             </li>
             <!-- json menu start -->
-            <li class="has-sub" ng-class="{active:$state.includes('app.json')}">
+            <!-- <li class="has-sub" ng-class="{active:$state.includes('app.json')}">
                 <a href="javascript:;">
                     <span class="caret pull-right"></span>
                     <i class="fa fa-file"></i>
@@ -82,24 +82,24 @@
                     <li ui-sref-active="active"><a ui-sref="app.json.reads">Read</a></li>
                     <li ui-sref-active="active"><a ui-sref="app.json.travels">Travel</a></li>
                 </ul>
-            </li>
+            </li> -->
             <!-- json menu end -->
             <!-- maps menu start -->
-            <li class="has-sub" ng-class="{active:$state.includes('app.maps')}">
+            <!-- ><li class="has-sub" ng-class="{active:$state.includes('app.maps')}">
                 <a href="javascript:;">
-                    <!-- <span class="badge pull-right">10</span> -->
+                    <span class="badge pull-right">10</span> -->
                     <span class="caret pull-right"></span>
-                    <i class="fa fa-map-marker"></i> 
+                    <!-- <i class="fa fa-map-marker"></i> 
                     <span>Maps</span>
                 </a>
                 <ul class="sub-menu">
                     <li ui-sref-active="active"><a ui-sref="app.maps.view">Live</a></li>
                     <li ui-sref-active="active"><a ui-sref="app.maps.playmapview">Play Map View</a></li>
                 </ul>
-            </li>
+            </li> -->
             <!-- maps menu end -->
             <!-- tambola menu start -->
-            <li class="has-sub" ng-class="{active:$state.includes('app.tambola')}">
+            <!-- <li class="has-sub" ng-class="{active:$state.includes('app.tambola')}">
                 <a href="javascript:;">
                     <span class="caret pull-right"></span>
                     <i class="fa fa-file"></i>
@@ -110,11 +110,11 @@
                     <li ui-sref-active="active"><a ui-sref="app.tambola.players">Tambola Players</a></li>
                     <li ui-sref-active="active"><a ui-sref="app.tambola.winners">Tambola Winners</a></li>
                 </ul>
-            </li>
+            </li> -->
             <!-- tambola menu end -->
-            <li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
+            <!-- <li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li> -->
             <!-- end sidebar minify button -->
-        </ul>
+        </ul
         <!-- end sidebar nav -->
         <!-- begin sidebar nav -->
         <ul class="nav" ng-show="user.role == 'temp'">

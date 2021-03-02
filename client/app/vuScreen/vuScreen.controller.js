@@ -268,29 +268,24 @@ colorAdminApp.controller('eventsLogsController', function ($scope, $rootScope, $
                 "targets": "_all"
             }],
             columns: [
-                { data: "vehicle_no", searchBy: true },
-                { data: "source" },
-                { data: "destination" },
+                { data: "event_id", searchBy: true },
+                { data: "event" },
+                { data: "session_id" },
                 { data: "sync_date" },
-                {
-                    data: "view_datetime",
-                    render: function (data) {
-                        return moment(data).format('YYYY-MM-DD, HH:mm:ss');//new Date(data);
-                    }
-                },
-                { data: "event", searchBy: true },
-                { data: "journey_id" },
-                { data: "unique_mac_address" },
-                { data: "reg_id", visible: false, searchBy: true },
-                { data: "device_id", visible: false, searchBy: true },
-                { data: "user", visible: false, searchBy: true },
-                { data: "sync_latitude", visible: false },
-                { data: "sync_longitude", visible: false },
-                { data: "model", visible: false },
-                { data: "play_duration", visible: false },
-                { data: "sync_type", visible: false },
-                { data: "interface", visible: false, searchBy: true },
-                { data: "version", visible: false, searchBy: true }
+                
+                { data: "sync_timestamp", searchBy: true },
+                { data: "sync_datetime" },
+                { data: "mac" },
+                // { data: "reg_id", visible: false, searchBy: true },
+                // { data: "device_id", visible: false, searchBy: true },
+                // { data: "user", visible: false, searchBy: true },
+                // { data: "sync_latitude", visible: false },
+                // { data: "sync_longitude", visible: false },
+                // { data: "model", visible: false },
+                // { data: "play_duration", visible: false },
+                // { data: "sync_type", visible: false },
+                // { data: "interface", visible: false, searchBy: true },
+                // { data: "version", visible: false, searchBy: true }
             ],
             drawCallback: function (settings) {
                 //alert( 'DataTables has redrawn the table' );
@@ -492,46 +487,31 @@ colorAdminApp.controller('adsLogsController', function ($scope, $interval, $root
                 "targets": "_all"
             }],
             columns: [
-                { data: "vehicle_no", searchBy: true },
-                { data: "source" },
-                { data: "destination" },
-                {
-                    data: "thumbnail",
-                    render: function (data) {
-                        return "<img src=" + data + " style= 'width: 70px; height: 47px'></img>";
-                    }
-                },
-                { data: "title" },
+                { data: "user_name", searchBy: true },
+                { data: "date" },
+                { data: "time" },
+               
+                { data: "room_id" },
 
-                {
-                    data: "view_datetime",
-                    render: function (data) {
-                        return moment(data).format('YYYY-MM-DD, HH:mm:ss');
-                    }
-                },
-                { data: "sync_date", searchBy: true },
-                {
-                    data: "view_duration",
-                    render: function (data) {
-                        return data.toFixed(2);
-                    }
-                },
-                { data: "play_duration", visible: false },
-                { data: "user_agent" },
-                { data: "sync_type", visible: false },
+               
+                { data: "host_id", searchBy: true },
+              
+                { data: "session_id", visible: false },
+                // { data: "user_agent" },
+                // { data: "sync_type", visible: false },
 
-                // { data: "genre",searchBy:true },
-                { data: "type", searchBy: true, visible: false },
-                { data: "mac", searchBy: true, visible: false },
-                { data: "device_id", searchBy: true, visible: false },
-                { data: "interface", visible: false },
-                // { data: "model" },
-                { data: "view_model", visible: false },
-                { data: "journey_id", visible: false },
-                { data: "version", visible: false },
-                { data: "view_android_id", visible: false },
-                { data: "reg_id", searchBy: true, visible: false }
-                // { data: "session_id",searchBy:true}
+                // // { data: "genre",searchBy:true },
+                // { data: "type", searchBy: true, visible: false },
+                // { data: "mac", searchBy: true, visible: false },
+                // { data: "device_id", searchBy: true, visible: false },
+                // { data: "interface", visible: false },
+                // // { data: "model" },
+                // { data: "view_model", visible: false },
+                // { data: "journey_id", visible: false },
+                // { data: "version", visible: false },
+                // { data: "view_android_id", visible: false },
+                // { data: "reg_id", searchBy: true, visible: false }
+                // // { data: "session_id",searchBy:true}
             ],
             drawCallback: function (settings) {
                 //alert( 'DataTables has redrawn the table' );
@@ -579,19 +559,7 @@ colorAdminApp.controller('gamesLogsController', function ($scope, $interval, $ro
     $scope.startDate = currentDate;
     $scope.endDate = currentDate;
     $scope.vuscreendaterangeSelector = currentDate + ' - ' + currentDate;
-    $scope.create = function (startDate, endDate) {
-        var url = "/api/vuscreen/game/bottomdata?startDate=" + startDate + "&endDate=" + endDate
-        $http.get(url)
-            .then(function (response) {
-                if (response.data.length > 0) {
-                    $scope.clicks = response.data[0]
-                    console.log($scope.clicks);
-
-                } else {
-                    alert("No Data to Display")
-                }
-            });
-    }
+    
     $scope.create($scope.startDate, $scope.endDate)
     if ($('#dau-data-data-table').length !== 0) {
         // alert($cookieStore.get('token'));
@@ -632,43 +600,25 @@ colorAdminApp.controller('gamesLogsController', function ($scope, $interval, $ro
                 "targets": "_all"
             }],
             columns: [
-                { data: "vehicle_no", searchBy: true },
-                { data: "source" },
-                { data: "destination" },
-                {
-                    data: "thumbnail",
-                    render: function (data) {
-                        return "<img src=" + data + " style= 'width: 70px; height: 47px'></img>";
-                    }
-                },
-                { data: "title" },
-                {
-                    data: "view_datetime",
-                    render: function (data) {
-                        return moment(data).format('YYYY-MM-DD, HH:mm:ss');
-                    }
-                },
-                { data: "sync_date", searchBy: true },
-                {
-                    data: "view_duration",
-                    render: function (data) {
-                        return data.toFixed(2);
-                    }
-                },
-                { data: "user_agent" },
-                { data: "play_duration", visible: false },
-                { data: "sync_type", visible: false },
-                { data: "mac", searchBy: true, visible: false },
-                // { data: "genre",searchBy:true },
-                { data: "type", searchBy: true, visible: false },
-                { data: "device_id", searchBy: true, visible: false },
-                { data: "interface", visible: false },
-                // { data: "model" },
-                { data: "view_model", visible: false },
-                { data: "journey_id", visible: false },
-                { data: "version", visible: false },
-                { data: "view_android_id", visible: false },
-                { data: "reg_id", searchBy: true, visible: false }
+                { data: "user_name", searchBy: true },
+                { data: "msg" },
+                { data: "date" },
+                { data: "time" },         
+                { data: "chat_url", searchBy: true },             
+                { data: "room_id" },
+                { data: "session_id", visible: false },
+                // { data: "sync_type", visible: false },
+                // { data: "mac", searchBy: true, visible: false },
+                // // { data: "genre",searchBy:true },
+                // { data: "type", searchBy: true, visible: false },
+                // { data: "device_id", searchBy: true, visible: false },
+                // { data: "interface", visible: false },
+                // // { data: "model" },
+                // { data: "view_model", visible: false },
+                // { data: "journey_id", visible: false },
+                // { data: "version", visible: false },
+                // { data: "view_android_id", visible: false },
+                // { data: "reg_id", searchBy: true, visible: false }
             ],
             drawCallback: function (settings) {
                 //alert( 'DataTables has redrawn the table' );
@@ -705,7 +655,6 @@ colorAdminApp.controller('gamesLogsController', function ($scope, $interval, $ro
                 $scope.endDate = end.format('MMMM D, YYYY');
                 $scope.$apply();
                 dautable.clear().draw();
-                $scope.create($scope.startDate, $scope.endDate)
             });
     };
 });
@@ -726,7 +675,7 @@ colorAdminApp.controller('readLogsController', function ($scope, $interval, $roo
                     console.log($scope.clicks);
 
                 } else {
-                    alert("No Data to Display")
+                    console.log("No Data to Display")
                 }
             });
     }
@@ -770,43 +719,52 @@ colorAdminApp.controller('readLogsController', function ($scope, $interval, $roo
                 "targets": "_all"
             }],
             columns: [
-                { data: "vehicle_no", searchBy: true },
-                { data: "source" },
-                { data: "destination" },
-                {
-                    data: "thumbnail",
-                    render: function (data) {
-                        return "<img src=" + data + " style= 'width: 70px; height: 47px'></img>";
-                    }
-                },
-                { data: "title" },
-                {
-                    data: "view_datetime",
-                    render: function (data) {
-                        return moment(data).format('YYYY-MM-DD, HH:mm:ss');
-                    }
-                },
-                { data: "sync_date" },
-                {
-                    data: "view_duration",
-                    render: function (data) {
-                        return data.toFixed(2);
-                    }
-                },
-                { data: "type", searchBy: true },
-                { data: "user_agent" },
-                { data: "mac", searchBy: true, visible: false },
-                // { data: "genre",searchBy:true },
-                { data: "device_id", searchBy: true, visible: false },
-                { data: "interface", visible: false },
-                // { data: "model" },
-                { data: "view_model", visible: false },
-                { data: "journey_id", visible: false },
-                { data: "version", visible: false },
-                { data: "view_android_id", visible: false },
-                { data: "play_duration", visible: false },
-                { data: "sync_type", visible: false },
-                { data: "reg_id", searchBy: true, visible: false }
+
+                { data: "user_name", searchBy: true },
+                { data: "msg" },
+                { data: "date" },
+                { data: "time" },         
+                { data: "chat_url", searchBy: true },             
+                { data: "room_id" },
+                { data: "session_id", visible: false },
+
+                // { data: "vehicle_no", searchBy: true },
+                // { data: "source" },
+                // { data: "destination" },
+                // {
+                //     data: "thumbnail",
+                //     render: function (data) {
+                //         return "<img src=" + data + " style= 'width: 70px; height: 47px'></img>";
+                //     }
+                // },
+                // { data: "title" },
+                // {
+                //     data: "view_datetime",
+                //     render: function (data) {
+                //         return moment(data).format('YYYY-MM-DD, HH:mm:ss');
+                //     }
+                // },
+                // { data: "sync_date" },
+                // {
+                //     data: "view_duration",
+                //     render: function (data) {
+                //         return data.toFixed(2);
+                //     }
+                // },
+                // { data: "type", searchBy: true },
+                // { data: "user_agent" },
+                // { data: "mac", searchBy: true, visible: false },
+                // // { data: "genre",searchBy:true },
+                // { data: "device_id", searchBy: true, visible: false },
+                // { data: "interface", visible: false },
+                // // { data: "model" },
+                // { data: "view_model", visible: false },
+                // { data: "journey_id", visible: false },
+                // { data: "version", visible: false },
+                // { data: "view_android_id", visible: false },
+                // { data: "play_duration", visible: false },
+                // { data: "sync_type", visible: false },
+                // { data: "reg_id", searchBy: true, visible: false }
             ],
             drawCallback: function (settings) {
                 //alert( 'DataTables has redrawn the table' );
@@ -1300,44 +1258,40 @@ colorAdminApp.controller('trackerLogsController', function ($scope, $interval, $
                 "targets": "_all"
             }],
             columns: [
-                { data: "vehicle_no", searchBy: true },
-                { data: "source" },
-                { data: "destination" },
-                {
-                    data: "thumbnail",
-                    render: function (data) {
-                        return "<img src=" + data + " style= 'width: 70px; height: 47px'></img>";
-                    }
-                },
-                { data: "title" },
-                {
-                    data: "view_datetime",
-                    render: function (data) {
-                        return moment(data).format('YYYY-MM-DD, HH:mm:ss');
-                    }
-                },
-                { data: "sync_date", searchBy: true },
-                {
-                    data: "view_duration",
-                    render: function (data) {
-                        return data.toFixed(2);
-                    }
-                },
-                { data: "play_duration" },
-                { data: "platform_duration" },
-                { data: "user_agent" },
-                { data: "sync_type", visible: false },
-                { data: "genre", searchBy: true, visible: false },
-                { data: "folder", visible: false },
-                { data: "type", searchBy: true, visible: false },
-                { data: "mac", searchBy: true, visible: false },
+                { data: "session_id", searchBy: true },
                 { data: "device_id", searchBy: true, visible: false },
-                { data: "interface", visible: false },
-                { data: "view_model", visible: false },
-                { data: "journey_id", visible: false },
-                { data: "version", visible: false },
-                { data: "view_android_id", visible: false },
-                { data: "reg_id", searchBy: true, visible: false }
+                { data: "title" },
+                { data: "sync_date", searchBy: true },
+                { data: "sync_timestamp" },
+                { data: "sync_datetime" },
+                
+                { data: "mac" },
+                { data: "type", searchBy: true, visible: false },
+                { data: "reg_id", searchBy: true, visible: false },
+
+                // {
+                //     data: "view_datetime",
+                //     render: function (data) {
+                //         return moment(data).format('YYYY-MM-DD, HH:mm:ss');
+                //     }
+                // },
+                // {
+                //     data: "view_duration",
+                //     render: function (data) {
+                //         return data.toFixed(2);
+                //     }
+                // },
+                // { data: "platform_duration" },
+                // { data: "user_agent" },
+                // { data: "sync_type", visible: false },
+                // { data: "genre", searchBy: true, visible: false },
+                // { data: "folder", visible: false },
+                // { data: "mac", searchBy: true, visible: false },
+                // { data: "interface", visible: false },
+                // { data: "view_model", visible: false },
+                // { data: "journey_id", visible: false },
+                // { data: "version", visible: false },
+                // { data: "view_android_id", visible: false },
                 // { data: "session_id",searchBy:true}
             ],
             drawCallback: function (settings) {

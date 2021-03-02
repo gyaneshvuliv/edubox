@@ -453,62 +453,12 @@ var vuscreen_getAllEventsData_Pagination = function (req, cb) {
   var startDate = 'null', endDate = 'null';
   if (req.query.startDate) { startDate = moment(req.query.startDate).format('YYYY-MM-DD'); }
   if (req.query.endDate) { endDate = moment(req.query.endDate).format('YYYY-MM-DD'); }
-  var filter = '';
+  
 
-  if (req.query.device_id) { filter = " AND ve.device_id ='" + req.query.device_id + "'" }
-  if (req.query.interface) { filter = " AND ve.interface ='" + req.query.interface + "'" }
-  if (req.query.version) { filter = " AND ve.version ='" + req.query.version + "'" }
-  if (req.query.session_id) { filter = " AND ve.session_id ='" + req.query.session_id + "'" }
-  if (req.query.user) { filter = " AND ve.user ='" + req.query.user + "'" }
-  if (req.query.event) { filter = " AND ve.event ='" + req.query.event + "'" }
-  if (req.query.vehicle_no) { filter = " AND vr.vehicle_no ='" + req.query.vehicle_no + "'" }
-  if (req.query.reg_id) { filter = " AND vr.reg_id ='" + req.query.reg_id + "'" }
+  var query = "select * from tbl_events where sync_date >= '" + startDate + "' AND sync_date <= '" + endDate + "'" 
+    + " order by sync_datetime desc"
 
-  var query = "select "
-    + " ve.reg_id,ve.session_id,ve.device_id,ve.user,ve.event,ve.model,ve.interface,ve.version,ve.view_datetime,ve.sync_datetime,vr.source,vr.destination,vr.vehicle_no"
-    + " from vuscreen_events ve LEFT JOIN vuscreen_content_package vc ON ve.view_id = vc.content_id"
-    + " LEFT JOIN vuscreen_registration vr ON ve.reg_id = vr.reg_id"
-    + " where ve.partner = '" + req.user.partner_id + "' AND ve.sync_date >= '" + startDate + "' AND ve.sync_date <= '" + endDate + "'" + filter
-    + " order by ve.sync_datetime desc"
-
-  var query = "select "
-    + " ve.partner,"
-    + " ve.reg_id,"
-    + " ve.session_id,"
-    + " ve.device_id,"
-    + " ve.user,"
-    + " ve.event,"
-    + " ve.view_type,"
-    + " ve.model,"
-    + " ve.interface,"
-    + " ve.package,"
-    + " ve.version,"
-    + " ve.view_datetime,"
-    + " ve.sync_datetime,"
-    + " ve.view_date,"
-    + " DATE_FORMAT(ve.view_datetime, '%H:%i:%s') view_time,"
-    + " ve.sync_date,"
-    + " DATE_FORMAT(ve.sync_datetime, '%H:%i:%s') sync_time,"
-    + " ve.source,"
-    + " ve.destination,"
-    + " vr.vehicle_no,"
-    + " ve.view_id,"
-    + " ve.tracking_id,"
-    + " ve.latitude,"
-    + " ve.longitude,"
-    + " ve.sync_latitude,"
-    + " ve.sync_longitude,"
-    + " ve.journey_id,"
-    + " ve.sync_type,"
-    + " ve.unique_mac_address"
-    + " from"
-    + " vuscreen_events ve"
-    + " LEFT JOIN"
-    + " vuscreen_registration vr ON ve.reg_id = vr.reg_id"
-    + " where"
-    + " ve.partner = '" + req.user.partner_id + "'"
-    + " AND ve.sync_date >= '" + startDate + "' AND ve.sync_date <= '" + endDate + "'" + filter
-    + " order by ve.view_datetime desc,ve.sync_datetime"
+  
   var option = { draw: req.query.draw, start: req.query.start, length: req.query.length };
   db.pagination(query, option, function (err, doc) {
     return cb(err, doc);
@@ -649,60 +599,10 @@ var vuscreen_getAlTrackerData_Pagination = function (req, cb) {
   var startDate = 'null', endDate = 'null';
   if (req.query.startDate) { startDate = moment(req.query.startDate).format('YYYY-MM-DD'); }
   if (req.query.endDate) { endDate = moment(req.query.endDate).format('YYYY-MM-DD'); }
-  var filter = '';
-  if (req.query.mac) { filter = " AND vst.mac ='" + req.query.mac + "'" }
-  if (req.query.device_id) { filter = " AND vst.device_id ='" + req.query.device_id + "'" }
-  if (req.query.interface) { filter = " AND vst.interface ='" + req.query.interface + "'" }
-  if (req.query.version) { filter = " AND vst.version ='" + req.query.version + "'" }
-  if (req.query.session_id) { filter = " AND vst.session_id ='" + req.query.session_id + "'" }
-  if (req.query.genre) { filter = " AND vc.genre ='" + req.query.genre + "'" }
-  if (req.query.type) { filter = " AND vst.type ='" + req.query.type + "'" }
-  if (req.query.vehicle_no) { filter = " AND vr.vehicle_no ='" + req.query.vehicle_no + "'" }
-  if (req.query.reg_id) { filter = " AND vr.reg_id ='" + req.query.reg_id + "'" }
 
-  var query = "select "
-    + " vc.title,"
-    + " vc.thumbnail,"
-    + " vst.type,"
-    + " vc.genre,"
-    + " vf.folder,"
-    + " am.login_id,"
-    + " vst.session_id,"
-    + " vst.view_android_id,"
-    + " vst.device_id,"
-    + " vst.version,"
-    + " vst.interface,"
-    + " vst.model,"
-    + " vst.mac,"
-    + " vst.reg_id,"
-    + " vst.sync_date,"
-    + " DATE_FORMAT(vst.sync_datetime, '%H:%i:%s') sync_time,"
-    + " vst.view_model,"
-    + " vst.view_duration view_duration,"
-    + " vst.view_datetime,"
-    + " vst.view_date,"
-    + " DATE_FORMAT(vst.view_datetime, '%H:%i:%s') view_time,"
-    + " vst.source,"
-    + " vst.destination,"
-    + " vr.vehicle_no,"
-    + " vst.sync_datetime,"
-    + " vst.journey_id,"
-    + " vst.user_agent,"
-    + " vst.play_duration,"
-    + " vst.sync_type,"
-    + " vst.platform_duration"
-    + " from"
-    + " vuscreen_tracker vst"
-    + " LEFT JOIN"
-    + " vuscreen_content_package vc ON vst.view_id = vc.content_id"
-    + " LEFT JOIN "
-    + " vuscreen_folders vf ON vf.id = vc.folder_id"
-    + " LEFT JOIN"
-    + " account_management am ON vst.partner = am.id"
-    + " LEFT JOIN "
-    + " vuscreen_registration vr ON vst.reg_id = vr.reg_id"
-    + " where vst.type IN ('video','brand-video') AND vst.sync_date>='" + startDate + "' AND vst.sync_date<='" + endDate + "' AND vst.partner = '" + req.user.partner_id + "'" + filter
-    + " order by vst.view_datetime desc,vst.sync_datetime"
+  var query = "select * from tbl_tracker where sync_date >= '" + startDate + "' AND sync_date <= '" + endDate + "'" 
+  + " order by sync_datetime desc"
+console.log(query);
   var option = { draw: req.query.draw, start: req.query.start, length: req.query.length };
   db.pagination(query, option, function (err, doc) {
     return cb(err, doc);
@@ -837,56 +737,10 @@ var vuscreen_getGameData_Pagination = function (req, cb) {
   var startDate = 'null', endDate = 'null';
   if (req.query.startDate) { startDate = moment(req.query.startDate).format('YYYY-MM-DD'); }
   if (req.query.endDate) { endDate = moment(req.query.endDate).format('YYYY-MM-DD'); }
-  var filter = '';
-  if (req.query.mac) { filter = " AND vst.mac ='" + req.query.mac + "'" }
-  if (req.query.device_id) { filter = " AND vst.device_id ='" + req.query.device_id + "'" }
-  if (req.query.interface) { filter = " AND vst.interface ='" + req.query.interface + "'" }
-  if (req.query.version) { filter = " AND vst.version ='" + req.query.version + "'" }
-  if (req.query.session_id) { filter = " AND vst.session_id ='" + req.query.session_id + "'" }
-  if (req.query.genre) { filter = " AND vc.genre ='" + req.query.genre + "'" }
-  if (req.query.type) { filter = " AND vst.type ='" + req.query.type + "'" }
-  if (req.query.vehicle_no) { filter = " AND vr.vehicle_no ='" + req.query.vehicle_no + "'" }
-  if (req.query.reg_id) { filter = " AND vr.reg_id ='" + req.query.reg_id + "'" }
-
-  var query = "select "
-    + " vc.title,"
-    + " vc.thumbnail,"
-    + " vst.type,"
-    // + " vc.genre,"
-    + " am.login_id,"
-    + " vst.session_id,"
-    + " vst.view_android_id,"
-    + " vst.device_id,"
-    + " vst.version,"
-    + " vst.interface,"
-    + " vst.model,"
-    + " vst.mac,"
-    + " vst.reg_id,"
-    + " vst.view_date,"
-    + " DATE_FORMAT(vst.view_datetime, '%H:%i:%s') view_time,"
-    + " vst.sync_date,"
-    + " DATE_FORMAT(vst.sync_datetime, '%H:%i:%s') sync_time,"
-    + " vst.view_model,"
-    + " vst.view_duration view_duration,"
-    + " vst.view_datetime,"
-    + " vst.source,"
-    + " vst.destination,"
-    + " vr.vehicle_no,"
-    + " vst.sync_datetime,"
-    + " vst.journey_id,"
-    + " vst.user_agent,"
-    + " vst.play_duration,"
-    + " vst.sync_type"
-    + " from"
-    + " vuscreen_tracker vst"
-    + " LEFT JOIN"
-    + " vuscreen_store_content vc ON vst.view_id = vc.content_id"
-    + " LEFT JOIN"
-    + " account_management am ON vst.partner = am.id"
-    + " LEFT JOIN "
-    + " vuscreen_registration vr ON vst.reg_id = vr.reg_id"
-    + " where vst.type = 'zip' AND vst.sync_date>='" + startDate + "' AND vst.sync_date<='" + endDate + "' AND vst.partner = '" + req.user.partner_id + "'" + filter
-    + " order by vst.view_datetime desc,vst.sync_datetime"
+ 
+  var query = "select * from tbl_chat where date >= '" + startDate + "' AND date <= '" + endDate + "'" 
+  + " order by chat_id desc"
+console.log(query);
   var option = { draw: req.query.draw, start: req.query.start, length: req.query.length };
   db.pagination(query, option, function (err, doc) {
     return cb(err, doc);
@@ -907,6 +761,7 @@ exports.vuscreen_getGameData_Bottom = function (req, res) {
 };
 // Get list of game logs
 exports.vuscreen_game_index = function (req, res) {
+  console.log(req);
   vuscreen_getGameData_Pagination(req, function (err, doc) {
     if (err) { return handleError(res, err); }
     else
@@ -967,54 +822,13 @@ exports.vuscreen_game_export_csv = function (req, res) {
 // Get list of ads logs
 var vuscreen_getAdsData_Pagination = function (req, cb) {
   var startDate = 'null', endDate = 'null';
+  console.log(req.query);
   if (req.query.startDate) { startDate = moment(req.query.startDate).format('YYYY-MM-DD'); }
   if (req.query.endDate) { endDate = moment(req.query.endDate).format('YYYY-MM-DD'); }
-  var filter = '';
-  if (req.query.mac) { filter = " AND vst.mac ='" + req.query.mac + "'" }
-  if (req.query.device_id) { filter = " AND vst.device_id ='" + req.query.device_id + "'" }
-  if (req.query.interface) { filter = " AND vst.interface ='" + req.query.interface + "'" }
-  if (req.query.version) { filter = " AND vst.version ='" + req.query.version + "'" }
-  if (req.query.session_id) { filter = " AND vst.session_id ='" + req.query.session_id + "'" }
-  if (req.query.type) { filter = " AND vst.type ='" + req.query.type + "'" }
-  if (req.query.vehicle_no) { filter = " AND vr.vehicle_no ='" + req.query.vehicle_no + "'" }
-  if (req.query.reg_id) { filter = " AND vr.reg_id ='" + req.query.reg_id + "'" }
-
-  var query = "select "
-    + " vc.title,"
-    + " vc.thumbnail,"
-    + " vst.type,"
-    + " am.login_id,"
-    + " vst.session_id,"
-    + " vst.view_android_id,"
-    + " vst.device_id,"
-    + " vst.version,"
-    + " vst.interface,"
-    + " vst.model,"
-    + " vst.mac,"
-    + " vst.reg_id,"
-    + " vst.view_model,"
-    + " vst.view_duration view_duration,"
-    + " vst.view_datetime,"
-    + " vst.source,"
-    + " vst.destination,"
-    + " vr.vehicle_no,"
-    + " vst.sync_datetime,"
-    + " vst.journey_id,"
-    + " vst.sync_date,"
-    + " vst.user_agent,"
-    + " vst.play_duration,"
-    + " vst.sync_type"
-    + " from"
-    + " vuscreen_tracker vst"
-    + " LEFT JOIN"
-    + " vuscreen_advertise_content vc ON vst.view_id = vc.id"
-    + " LEFT JOIN"
-    + " account_management am ON vst.partner = am.id"
-    + " LEFT JOIN "
-    + " vuscreen_registration vr ON vst.reg_id = vr.reg_id"
-    + " where vst.type IN ('banner-ad','banner-adgames','banner-adtravel','banner-admall','banner-adfnb','banner-ad','video-ad','interstitial') AND vst.sync_date>='" + startDate + "' AND vst.sync_date<='" + endDate + "' AND vst.partner = '" + req.user.partner_id + "'" + filter
-    + " order by vst.view_datetime desc,vst.sync_datetime"
-
+  
+  var query = "select * from tbl_user where date >= '" + startDate + "' AND date <= '" + endDate + "'" 
+  + " order by user_id desc"
+console.log(query);
   var option = { draw: req.query.draw, start: req.query.start, length: req.query.length };
   db.pagination(query, option, function (err, doc) {
     return cb(err, doc);
@@ -1079,53 +893,8 @@ var vuscreen_getReadData_Pagination = function (req, cb) {
   var startDate = 'null', endDate = 'null';
   if (req.query.startDate) { startDate = moment(req.query.startDate).format('YYYY-MM-DD'); }
   if (req.query.endDate) { endDate = moment(req.query.endDate).format('YYYY-MM-DD'); }
-  var filter = '';
-  if (req.query.mac) { filter = " AND vst.mac ='" + req.query.mac + "'" }
-  if (req.query.device_id) { filter = " AND vst.device_id ='" + req.query.device_id + "'" }
-  if (req.query.interface) { filter = " AND vst.interface ='" + req.query.interface + "'" }
-  if (req.query.version) { filter = " AND vst.version ='" + req.query.version + "'" }
-  if (req.query.session_id) { filter = " AND vst.session_id ='" + req.query.session_id + "'" }
-  if (req.query.genre) { filter = " AND vc.genre ='" + req.query.genre + "'" }
-  if (req.query.type) { filter = " AND vst.type ='" + req.query.type + "'" }
-  if (req.query.vehicle_no) { filter = " AND vr.vehicle_no ='" + req.query.vehicle_no + "'" }
-  if (req.query.reg_id) { filter = " AND vr.reg_id ='" + req.query.reg_id + "'" }
-
-  var query = "select "
-    + " vc.title,"
-    + " vc.thumbnail,"
-    + " vst.type,"
-    // + " vc.genre,"
-    + " am.login_id,"
-    + " vst.session_id,"
-    + " vst.view_android_id,"
-    + " vst.device_id,"
-    + " vst.version,"
-    + " vst.interface,"
-    + " vst.model,"
-    + " vst.mac,"
-    + " vst.reg_id,"
-    + " vst.sync_date,"
-    + " vst.view_model,"
-    + " vst.view_duration view_duration,"
-    + " vst.view_datetime,"
-    + " vst.source,"
-    + " vst.destination,"
-    + " vr.vehicle_no,"
-    + " vst.sync_datetime,"
-    + " vst.journey_id,"
-    + " vst.user_agent,"
-    + " vst.play_duration,"
-    + " vst.sync_type"
-    + " from"
-    + " vuscreen_tracker vst"
-    + " LEFT JOIN"
-    + " vuscreen_read_content vc ON vst.view_id = vc.content_id"
-    + " LEFT JOIN"
-    + " account_management am ON vst.partner = am.id"
-    + " LEFT JOIN "
-    + " vuscreen_registration vr ON vst.reg_id = vr.reg_id"
-    + " where vst.menu= 'READ' AND vst.trackingDetails != 'click' AND vst.sync_date>='" + startDate + "' AND vst.sync_date<='" + endDate + "' AND vst.partner = '" + req.user.partner_id + "'" + filter
-    + " order by vst.view_datetime desc,vst.sync_datetime"
+  var query = "select * from tbl_chat where date >= '" + startDate + "' AND date <= '" + endDate + "'" 
+  + " order by chat_id desc"
   console.log(query)
   var option = { draw: req.query.draw, start: req.query.start, length: req.query.length };
   db.pagination(query, option, function (err, doc) {
