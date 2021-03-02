@@ -453,12 +453,12 @@ var vuscreen_getAllEventsData_Pagination = function (req, cb) {
   var startDate = 'null', endDate = 'null';
   if (req.query.startDate) { startDate = moment(req.query.startDate).format('YYYY-MM-DD'); }
   if (req.query.endDate) { endDate = moment(req.query.endDate).format('YYYY-MM-DD'); }
-  
 
-  var query = "select * from tbl_events where sync_date >= '" + startDate + "' AND sync_date <= '" + endDate + "'" 
+
+  var query = "select * from tbl_events where sync_date >= '" + startDate + "' AND sync_date <= '" + endDate + "'"
     + " order by sync_datetime desc"
 
-  
+
   var option = { draw: req.query.draw, start: req.query.start, length: req.query.length };
   db.pagination(query, option, function (err, doc) {
     return cb(err, doc);
@@ -600,9 +600,9 @@ var vuscreen_getAlTrackerData_Pagination = function (req, cb) {
   if (req.query.startDate) { startDate = moment(req.query.startDate).format('YYYY-MM-DD'); }
   if (req.query.endDate) { endDate = moment(req.query.endDate).format('YYYY-MM-DD'); }
 
-  var query = "select * from tbl_tracker where sync_date >= '" + startDate + "' AND sync_date <= '" + endDate + "'" 
-  + " order by sync_datetime desc"
-console.log(query);
+  var query = "select * from tbl_tracker where sync_date >= '" + startDate + "' AND sync_date <= '" + endDate + "'"
+    + " order by sync_datetime desc"
+  console.log(query);
   var option = { draw: req.query.draw, start: req.query.start, length: req.query.length };
   db.pagination(query, option, function (err, doc) {
     return cb(err, doc);
@@ -737,10 +737,10 @@ var vuscreen_getGameData_Pagination = function (req, cb) {
   var startDate = 'null', endDate = 'null';
   if (req.query.startDate) { startDate = moment(req.query.startDate).format('YYYY-MM-DD'); }
   if (req.query.endDate) { endDate = moment(req.query.endDate).format('YYYY-MM-DD'); }
- 
-  var query = "select * from tbl_chat where date >= '" + startDate + "' AND date <= '" + endDate + "'" 
-  + " order by chat_id desc"
-console.log(query);
+
+  var query = "select * from tbl_chat where date >= '" + startDate + "' AND date <= '" + endDate + "'"
+    + " order by chat_id desc"
+  console.log(query);
   var option = { draw: req.query.draw, start: req.query.start, length: req.query.length };
   db.pagination(query, option, function (err, doc) {
     return cb(err, doc);
@@ -825,10 +825,10 @@ var vuscreen_getAdsData_Pagination = function (req, cb) {
   console.log(req.query);
   if (req.query.startDate) { startDate = moment(req.query.startDate).format('YYYY-MM-DD'); }
   if (req.query.endDate) { endDate = moment(req.query.endDate).format('YYYY-MM-DD'); }
-  
-  var query = "select * from tbl_user where date >= '" + startDate + "' AND date <= '" + endDate + "'" 
-  + " order by user_id desc"
-console.log(query);
+
+  var query = "select * from tbl_user where date >= '" + startDate + "' AND date <= '" + endDate + "'"
+    + " order by user_id desc"
+  console.log(query);
   var option = { draw: req.query.draw, start: req.query.start, length: req.query.length };
   db.pagination(query, option, function (err, doc) {
     return cb(err, doc);
@@ -893,8 +893,8 @@ var vuscreen_getReadData_Pagination = function (req, cb) {
   var startDate = 'null', endDate = 'null';
   if (req.query.startDate) { startDate = moment(req.query.startDate).format('YYYY-MM-DD'); }
   if (req.query.endDate) { endDate = moment(req.query.endDate).format('YYYY-MM-DD'); }
-  var query = "select * from tbl_chat where date >= '" + startDate + "' AND date <= '" + endDate + "'" 
-  + " order by chat_id desc"
+  var query = "select * from tbl_chat where date >= '" + startDate + "' AND date <= '" + endDate + "'"
+    + " order by chat_id desc"
   console.log(query)
   var option = { draw: req.query.draw, start: req.query.start, length: req.query.length };
   db.pagination(query, option, function (err, doc) {
@@ -7326,40 +7326,32 @@ var dtsd = function () {
 
 
 
-exports.analytics = function (req, res) {
-  async function app() {
+exports.analytics = async function (req, res) {
+  // console.log(req.body)
+  console.log(req.body.length)
 
-console.log(req.body.length)
-    var datas = req.body;
-    for(let o=0;o<datas.length;o++){
-      var data= datas[o];
-    
-    for (let i = 0; i < data.chat.length; i++) {
-      // console.log(data.chat[i]); 
-      let doc1 = await insertChat(data.chat[i]);
-    }
-
-    for (let j = 0; j < data.tracker.length; j++) {
-      // console.log(data.tracker[j])
-      let doc1 = await insertTracker(data.tracker[j]);
-    }
-    for (let k = 0; k < data.event.length; k++) {
-      // console.log(data.event[k])
-      let doc1 = await insertEvent(data.event[k]);
-    }
-    for (let l = 0; l < data.user.length; l++) {
-      // console.log(data.user[l])
-      let doc1 = await insertUser(data.user[l]);
-    }
-    if(o+1==datas.length){
-
+  var data = req.body;
+  for (let i = 0; i < data.chat.length; i++) {
+    console.log(data.chat[i]);
+    let doc1 = await insertChat(data.chat[i]);
+    if (i + 1 == data.chat.length) {
       return res.status(200).json("doc1");
     }
   }
 
+  // for (let j = 0; j < data.tracker.length; j++) {
+  //   // console.log(data.tracker[j])
+  //   let doc1 = await insertTracker(data.tracker[j]);
+  // }
+  // for (let k = 0; k < data.event.length; k++) {
+  //   // console.log(data.event[k])
+  //   let doc1 = await insertEvent(data.event[k]);
+  // }
+  // for (let l = 0; l < data.user.length; l++) {
+  //   // console.log(data.user[l])
+  //   let doc1 = await insertUser(data.user[l]);
+  // }
 
-  }
-  app();
 
 };
 
@@ -7474,8 +7466,8 @@ function insertTracker(data) {
       view_duration: data.view_duration,
       play_duration: data.play_duration,
       platform_duration: data.platform_duration,
-      type:data.type,
-      title:data.title
+      type: data.type,
+      title: data.title
 
     }
     db.get().query(query, json, function (err, device) {

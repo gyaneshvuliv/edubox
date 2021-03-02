@@ -22,45 +22,48 @@ var moment = require('moment')
 // var multipart = require('connect-multiparty');
 // var multipartMiddleware = multipart();
 
-module.exports = function(app) {
+module.exports = function (app) {
   var env = app.get('env');
   app.version = '0.0.1';
   var versionator = require('versionator').create(app.version);
   app.use(versionator.middleware)
-  app.set('views', config.root + '/server/views/themes/'+config.theme);
+  app.set('views', config.root + '/server/views/themes/' + config.theme);
 
   app.set('view engine', 'jade');
   app.use(compression());
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(bodyParser.json());
+  // app.use(bodyParser);
+  app.use(bodyParser.urlencoded({
+    limit: "50mb",
+    extended: true
+  }));
+  app.use(bodyParser.json({ limit: "50mb" }));
   app.use(methodOverride());
   app.use(cookieParser());
   app.use(passport.initialize());
-  // app.use(express.bodyParser({limit: '500mb'}));
-  // app.use(express.limit(100000000));
+  // app.use(express.json({ limit: '500mb' }));
 
 
   // app.use(multipartMiddleware);
-  
+
   // Persist sessions with mongoStore
   // We need to enable sessions for passport twitter because its an oauth 1.0 strategy
   app.use(session({
     secret: config.secrets.session,
     resave: true,
     saveUninitialized: true,
-    cookie: { secure: true,maxAge:60000 * 335 },
+    cookie: { secure: true, maxAge: 60000 * 335 },
     // store: new mongoStore({
     //   mongooseConnection: mongoose.connection,
     //   db: 'TimeBombGCM'
     // })
   }));
-  app.use(function(req, res, next) {
-    try{
-      if(req.url.toString().indexOf('/export/csv') > 0){
+  app.use(function (req, res, next) {
+    try {
+      if (req.url.toString().indexOf('/export/csv') > 0) {
         req.query.length = 100000;
       }
       next();
-    }catch(err){
+    } catch (err) {
       res.status(500).send(err)
     }
   });
@@ -79,7 +82,7 @@ module.exports = function(app) {
   //   hostname: 'gcmreport.vuliv.com'
   // }));
 
-  app.use(function(req, res, next) {
+  app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
@@ -87,18 +90,18 @@ module.exports = function(app) {
   });
 
 
-  app.use(function(req, res, next) {
-    try{
+  app.use(function (req, res, next) {
+    try {
       if (req.query.startDate) {
-        var sdate = new Date(moment(new Date(req.query.startDate)).format('YYYY-MM-DD')+"T00:00:00.0Z").getTime() - 19800000
+        var sdate = new Date(moment(new Date(req.query.startDate)).format('YYYY-MM-DD') + "T00:00:00.0Z").getTime() - 19800000
         req.query.startDate = new Date(sdate);
       }
       if (req.query.endDate) {
-        var edate = new Date(moment(new Date(req.query.endDate)).format('YYYY-MM-DD')+"T23:59:59.0Z").getTime() - 19800000
+        var edate = new Date(moment(new Date(req.query.endDate)).format('YYYY-MM-DD') + "T23:59:59.0Z").getTime() - 19800000
         req.query.endDate = new Date(edate);
       }
       next();
-    }catch(err){
+    } catch (err) {
       res.status(500).send(err)
     }
   });
