@@ -36,7 +36,7 @@ module.exports = function(app) {
   app.use(methodOverride());
   app.use(cookieParser());
   app.use(passport.initialize());
-  app.use(express.bodyParser({limit: '500mb'}));
+  // app.use(express.bodyParser({limit: '500mb'}));
   // app.use(express.limit(100000000));
 
 
