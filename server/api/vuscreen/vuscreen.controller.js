@@ -7515,10 +7515,10 @@ exports.trackeranalytics = async function (req, res) {
   for (let j=0;j<req.body.length;j++){
     var data = req.body[j];
   for (let k = 0; k < data.tracker.length; k++) {
-      console.log(data.tracker[j])
+      console.log(data.tracker[k])
       let doc1 = await insertTracker(data.tracker[k]);
     }
-    if (j + 1 == data.tracker.length) {
+    if (j + 1 == req.body.length) {
       return res.status(200).json("doc1");
     }
   }
