@@ -7328,9 +7328,10 @@ var dtsd = function () {
 
 exports.chatanalytics = async function (req, res) {
   // console.log(req.body)
-  console.log(req.body)
-for (let j=0;j<req.body;j++){
+  // console.log(req.body)
+for (let j=0;j<req.body.length;j++){
   var data = req.body[j];
+  // console.log(data);
   for (let i = 0; i < data.chat.length; i++) {
     console.log(data.chat[i]);
     let doc1 = await insertChat(data.chat[i]);
@@ -7376,6 +7377,7 @@ function insertChat(data) {
 
     }
     db.get().query(query, json, function (err, device) {
+      console.log(err);
       if (err) { myResolve(err) }
       else {
 
@@ -7392,7 +7394,7 @@ function insertChat(data) {
 exports.useranalytics = async function (req, res) {
   // console.log(req.body)
   console.log(req.body.length)
-  for (let j=0;j<req.body;j++){
+  for (let j=0;j<req.body.length;j++){
   var data = req.body[j];
   for (let l = 0; l < data.user.length; l++) {
       console.log(data.user[l])
@@ -7449,7 +7451,7 @@ function insertUser(data) {
 exports.eventanalytics = async function (req, res) {
   // console.log(req.body)
   console.log(req.body.length)
-  for (let j=0;j<req.body;j++){
+  for (let j=0;j<req.body.length;j++){
   var data = req.body[j];
   for (let k = 0; k < data.event.length; k++) {
       console.log(data.event[k])
@@ -7510,7 +7512,7 @@ function insertEvent(data) {
 exports.trackeranalytics = async function (req, res) {
   // console.log(req.body)
   console.log(req.body.length)
-  for (let j=0;j<req.body;j++){
+  for (let j=0;j<req.body.length;j++){
     var data = req.body[j];
   for (let k = 0; k < data.tracker.length; k++) {
       console.log(data.tracker[j])
