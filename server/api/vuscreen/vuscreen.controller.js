@@ -7378,7 +7378,8 @@ function insertChat(data) {
     }
     db.get().query(query, json, function (err, device) {
       console.log(err);
-      if (err) {console.log(err); }
+      if (err) {console.log(err);
+        myResolve("err"); }
       else {
 
         myResolve("success");
