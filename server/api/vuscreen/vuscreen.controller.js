@@ -7328,16 +7328,19 @@ var dtsd = function () {
 
 exports.chatanalytics = async function (req, res) {
   // console.log(req.body)
-  console.log(req.body.length)
-
-  var data = req.body;
+  console.log(req.body)
+for (let j=0;j<req.body;j++){
+  var data = req.body[j];
   for (let i = 0; i < data.chat.length; i++) {
     console.log(data.chat[i]);
     let doc1 = await insertChat(data.chat[i]);
-    if (i + 1 == data.chat.length) {
-      return res.status(200).json("doc1");
-    }
+    
   }
+
+  if (j + 1 == req.body.length) {
+    return res.status(200).json("doc1");
+  }
+}
 
   // for (let j = 0; j < data.tracker.length; j++) {
   //   // console.log(data.tracker[j])
@@ -7389,16 +7392,17 @@ function insertChat(data) {
 exports.useranalytics = async function (req, res) {
   // console.log(req.body)
   console.log(req.body.length)
-
-  var data = req.body;
+  for (let j=0;j<req.body;j++){
+  var data = req.body[j];
   for (let l = 0; l < data.user.length; l++) {
       console.log(data.user[l])
       let doc1 = await insertUser(data.user[l]);
-    if (l + 1 == data.user.length) {
-      return res.status(200).json("doc1");
-    }
+   
   }
-
+  if (j + 1 == req.body.length) {
+    return res.status(200).json("doc1");
+  }
+  }
   // for (let j = 0; j < data.tracker.length; j++) {
   //   // console.log(data.tracker[j])
   //   let doc1 = await insertTracker(data.tracker[j]);
@@ -7445,16 +7449,16 @@ function insertUser(data) {
 exports.eventanalytics = async function (req, res) {
   // console.log(req.body)
   console.log(req.body.length)
-
-  var data = req.body;
+  for (let j=0;j<req.body;j++){
+  var data = req.body[j];
   for (let k = 0; k < data.event.length; k++) {
       console.log(data.event[k])
       let doc1 = await insertEvent(data.event[k]);
-    if (k + 1 == data.event.length) {
+    }
+    if (j + 1 == req.body.length) {
       return res.status(200).json("doc1");
     }
   }
-
   // for (let j = 0; j < data.tracker.length; j++) {
   //   // console.log(data.tracker[j])
   //   let doc1 = await insertTracker(data.tracker[j]);
@@ -7506,16 +7510,16 @@ function insertEvent(data) {
 exports.trackeranalytics = async function (req, res) {
   // console.log(req.body)
   console.log(req.body.length)
-
-  var data = req.body;
-  for (let j = 0; j < data.tracker.length; j++) {
+  for (let j=0;j<req.body;j++){
+    var data = req.body[j];
+  for (let k = 0; k < data.tracker.length; k++) {
       console.log(data.tracker[j])
-      let doc1 = await insertTracker(data.tracker[j]);
+      let doc1 = await insertTracker(data.tracker[k]);
+    }
     if (j + 1 == data.tracker.length) {
       return res.status(200).json("doc1");
     }
   }
-
   // for (let j = 0; j < data.tracker.length; j++) {
   //   // console.log(data.tracker[j])
   //   let doc1 = await insertTracker(data.tracker[j]);
